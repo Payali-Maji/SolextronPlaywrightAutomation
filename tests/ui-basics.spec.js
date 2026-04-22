@@ -11,3 +11,6 @@ test('Page Playwright test', async ({ page }) => {
     await page.goto("https://design-preprod.solextron.com/");
     console.log(await page.title());
 });
+
+
+

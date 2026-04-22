@@ -104,7 +104,8 @@ test('Solextron: Project and Component Management', async ({ page }) => {
         console.log('[FLOW] Support Component flow');
 
         const supportIcon = page.locator('.add-icon img').nth(4);
-        const supportText = page.getByText('ADSTec Inbetriebnahme-Support');
+        //  const supportText = page.getByText('ADSTec Inbetriebnahme-Support');
+        const supportText = page.getByText('Inbetriebnahme-Support ADSTec 336kWh / BAT280');
 
         await actions.click(supportIcon, 'Click Support Add Icon');
         await actions.click(supportText, 'Select Support Component');
