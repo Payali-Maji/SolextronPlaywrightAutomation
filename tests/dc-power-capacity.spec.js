@@ -77,15 +77,15 @@ test('Solextron: Project and Component Management', async ({ page }) => {
   await page.locator('div').filter({ hasText: 'DC Power Capacity' }).nth(5).click();
   await page.locator('span').nth(4).click();
   await page.locator('span').nth(4).click();
-  await page.getByRole('textbox', { name: '10829' }).click();
-  await page.getByRole('textbox', { name: '10829' }).fill('10830');
+  await page.getByRole('textbox', { name: '10830' }).click();
+  await page.getByRole('textbox', { name: '10830' }).fill('10829');
   await page.getByRole('button', { name: 'Calculate Power Capacity' }).click();
 
   await page.locator('section').nth(1).click();
   await page.getByRole('main').locator('i').click();
   await page.getByText('CHE', { exact: true }).click();
   await page.locator('.col-12.select').click();
-  await page.getByText(' Small business, max. power demand: 8 kW ').click();
+  await page.getByText(' Small business, max. power demand: 15 kW ').click();
 
   await page.getByText('Import Consumption from CSV').click();
   const downloadPromise = page.waitForEvent('download');
