@@ -60,3 +60,4 @@ test.describe('Agrola Project Automation Flow', () => {
     console.log('Task completed for all matching projects.');
   });
 });
+
