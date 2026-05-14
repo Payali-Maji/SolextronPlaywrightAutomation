@@ -74,13 +74,13 @@ test('Solextron: Project and Component Management', async ({ page }) => {
     await page.getByText('Elektrizitätswerke des').first().click();
     await page.getByText('Elektrizitätswerke des').nth(1).click();
     await page.locator('.col-4.pr-0').first().click();
-    await page.getByRole('textbox', { name: '6.95' }).fill('6.93'); //
+    await page.getByRole('textbox', { name: '6.95' }).fill('6.93'); //Keep existing value in "name:" and keep desired value in "fill()" then run
     // await page.locator('div:nth-child(4) > .col-4.pr-0').click();
     // await page.getByRole('textbox', { name: '3' }).fill('2');
     await page.locator('div:nth-child(7) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).first().fill('24.136');
+    await page.getByRole('textbox', { name: '24.133' }).first().fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
     await page.locator('div:nth-child(8) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).fill('24.136');
+    await page.getByRole('textbox', { name: '24.133' }).fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
     await page.locator('div:nth-child(9) > .col-4.pr-0').click();
     await page.getByRole('textbox', { name: '0' }).fill('0');
     await page.getByRole('button', { name: 'Update Changes' }).click();
