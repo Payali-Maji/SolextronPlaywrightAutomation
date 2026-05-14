@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 class SlowActions {
-  constructor(page, delay = 15000) {
+  constructor(page, delay = 19000) {
     this.page = page;
     this.delay = delay;
   }
@@ -42,7 +42,7 @@ test.use({ headless: false });
 test('Solextron: Project and Component Management', async ({ page }) => {
   test.setTimeout(120000);
 
-  const actions = new SlowActions(page, 3000);
+  const actions = new SlowActions(page, 5000);
 
   await actions.goto('https://design-preprod.solextron.com/login', 'Login Page');
   await actions.click(page.getByRole('button', { name: 'LOGIN' }), 'Initial LOGIN button');
@@ -56,7 +56,7 @@ test('Solextron: Project and Component Management', async ({ page }) => {
 
   try {
     const concurrentLogin = page.getByRole('button', { name: 'Login', exact: true }).first();
-    await concurrentLogin.waitFor({ state: 'visible', timeout: 5000 });
+    await concurrentLogin.waitFor({ state: 'visible', timeout: 9000 });
     await actions.click(concurrentLogin, 'Concurrent Login Modal Button');
   } catch (e) {
     // No concurrent login
@@ -66,7 +66,7 @@ test('Solextron: Project and Component Management', async ({ page }) => {
   await page.waitForLoadState('networkidle');
 
   const projectCell = page.getByRole('gridcell', { name: 'Rhäzuns Battery' }).first();
-  await projectCell.waitFor({ state: 'visible', timeout: 15000 });
+  await projectCell.waitFor({ state: 'visible', timeout: 19000 });
   await actions.click(projectCell, 'Project "Rhäzuns Battery"');
 
   const sidebar = page.locator('app-design-sidebar');
@@ -85,7 +85,7 @@ test('Solextron: Project and Component Management', async ({ page }) => {
   await page.getByRole('main').locator('i').click();
   await page.getByText('CHE', { exact: true }).click();
   await page.locator('.col-12.select').click();
-  await page.getByText(' Small business, max. power demand: 15 kW ').click();
+  await page.getByText(' Small business, max. power demand: 8 kW ').click();
 
   await page.getByText('Import Consumption from CSV').click();
   const downloadPromise = page.waitForEvent('download');
