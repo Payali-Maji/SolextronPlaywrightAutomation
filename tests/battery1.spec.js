@@ -69,20 +69,39 @@ test('Solextron: Project and Component Management', async ({ page }) => {
     await projectCell.waitFor({ state: 'visible', timeout: 19000 });
     await actions.click(projectCell, 'Project "Rhäzuns Battery"');
 
-    await page.getByRole('navigation').getByText('Tariff Details').click();
-    await page.getByRole('combobox').nth(1).selectOption('H4');
-    await page.getByText('Elektrizitätswerke des').first().click();
-    await page.getByText('Elektrizitätswerke des').nth(1).click();
-    await page.locator('.col-4.pr-0').first().click();
-    await page.getByRole('textbox', { name: '6.95' }).fill('6.93'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    // await page.locator('div:nth-child(4) > .col-4.pr-0').click();
-    // await page.getByRole('textbox', { name: '3' }).fill('2');
-    await page.locator('div:nth-child(7) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).first().fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    await page.locator('div:nth-child(8) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    await page.locator('div:nth-child(9) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '0' }).fill('0');
-    await page.getByRole('button', { name: 'Update Changes' }).click();
-    await page.getByRole('button', { name: 'Save and Proceed' }).click();
+    await page.getByText('Battery Storage').click();
+    /*   await page.locator('span').nth(4).click();
+       await page.locator('span').nth(4).click();
+       await page.locator('#mat-radio-10 label').click();
+       await page.locator('#mat-radio-13 > .mat-radio-label').click();
+       await page.getByRole('button', { name: 'Simulate', exact: true }).click();
+       // await page.locator('#mat-radio-7 > .mat-radio-label').click();
+       await page.locator('#mat-radio-15 > .mat-radio-label').click();
+       await page.getByRole('textbox', { name: '2' }).click();
+       await page.getByRole('textbox', { name: '2' }).fill('1');
+       await page.getByRole('button', { name: 'Simulate', exact: true }).click();
+   
+       // await page.locator('#mat-radio-16 > .mat-radio-label').click();
+       await document.querySelector('input[type="radio"][value="notallowed"]').click();
+       await page.getByRole('button', { name: 'Simulate', exact: true }).click();
+   
+       await page.locator('#mat-radio-17 > .mat-radio-label').click();
+       await page.getByText('4', { exact: true }).click();
+       await page.getByText('5', { exact: true }).click();
+       await page.getByText('6', { exact: true }).click();
+       await page.getByRole('button', { name: 'Simulate', exact: true }).click();
+   
+       await page.getByRole('button', { name: 'Simulate Multiple Modules' }).click();
+   
+       await page.getByRole('region', { name: 'Simulate Multiple Modules' }).getByRole('textbox').click();
+       await page.getByRole('region', { name: 'Simulate Multiple Modules' }).getByRole('textbox').fill('2');
+       await page.getByRole('button', { name: 'Simulate', exact: true }).click(); */
+    await page.locator('#simulate-radio-btn').click();
+    await page.locator('#simulate-radio-btn > .mat-radio-label').click();
+    await page.getByRole('button', { name: 'Simulate', exact: true }).click();
+    await page.locator('#tariffbased-radio-btn > .mat-radio-label').click();
+    await page.getByRole('button', { name: 'Simulate', exact: true }).click();
+
+
+
 });

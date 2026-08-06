@@ -69,20 +69,15 @@ test('Solextron: Project and Component Management', async ({ page }) => {
     await projectCell.waitFor({ state: 'visible', timeout: 19000 });
     await actions.click(projectCell, 'Project "Rhäzuns Battery"');
 
-    await page.getByRole('navigation').getByText('Tariff Details').click();
-    await page.getByRole('combobox').nth(1).selectOption('H4');
-    await page.getByText('Elektrizitätswerke des').first().click();
-    await page.getByText('Elektrizitätswerke des').nth(1).click();
-    await page.locator('.col-4.pr-0').first().click();
-    await page.getByRole('textbox', { name: '6.95' }).fill('6.93'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    // await page.locator('div:nth-child(4) > .col-4.pr-0').click();
-    // await page.getByRole('textbox', { name: '3' }).fill('2');
-    await page.locator('div:nth-child(7) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).first().fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    await page.locator('div:nth-child(8) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    await page.locator('div:nth-child(9) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '0' }).fill('0');
-    await page.getByRole('button', { name: 'Update Changes' }).click();
+    await page.locator('div').filter({ hasText: /^Results Summary$/ }).nth(1).click();
+    await page.getByRole('button', { name: 'Edit String Design For SLD' }).click();
+    await page.getByRole('textbox').first().click();
+    await page.getByRole('textbox').first().press('ArrowLeft');
+    await page.getByRole('textbox').first().fill('[10,5]');
+    // await page.getByRole('button', { name: 'Save', exact: true }
+    await page.getByRole('button', { name: 'Save', exact: true }).click();
+    await page.getByRole('button', { name: 'Tutorial' }).click();
+    await page.getByRole('button', { name: '×' }).click();
     await page.getByRole('button', { name: 'Save and Proceed' }).click();
 });
+

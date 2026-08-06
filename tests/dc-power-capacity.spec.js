@@ -98,5 +98,10 @@ test('Solextron: Project and Component Management', async ({ page }) => {
   ]);
   await fileChooser.setFiles('C:/Downloads/demandexample-kwh.csv');
 
-
+  await page.getByText('Custom Profile').click();
+  await page.getByRole('textbox', { name: '5', exact: true }).click();
+  await page.getByRole('textbox', { name: '5', exact: true }).fill('20');
+  await page.getByRole('button', { name: 'Save and Proceed' }).click();
+  await page.goto('https://design-preprod.solextron.com/design/components');
+  await page.getByText('Back').click();
 });

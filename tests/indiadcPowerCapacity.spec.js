@@ -48,7 +48,7 @@ test('Solextron: Project and Component Management', async ({ page }) => {
     await actions.click(page.getByRole('button', { name: 'LOGIN' }), 'Initial LOGIN button');
 
     await actions.click(page.getByRole('textbox', { name: 'Account ID' }), 'Account ID field');
-    await actions.fill(page.getByRole('textbox', { name: 'Account ID' }), 'test1@fhnw.ch', 'Account ID');
+    await actions.fill(page.getByRole('textbox', { name: 'Account ID' }), 'india@solextron.com', 'Account ID');
     await actions.press(page.getByRole('textbox', { name: 'Account ID' }), 'Tab', 'Account ID field');
     await actions.fill(page.getByRole('textbox', { name: 'Password' }), 'default123', 'Password');
 
@@ -69,20 +69,40 @@ test('Solextron: Project and Component Management', async ({ page }) => {
     await projectCell.waitFor({ state: 'visible', timeout: 19000 });
     await actions.click(projectCell, 'Project "Rhäzuns Battery"');
 
-    await page.getByRole('navigation').getByText('Tariff Details').click();
-    await page.getByRole('combobox').nth(1).selectOption('H4');
-    await page.getByText('Elektrizitätswerke des').first().click();
-    await page.getByText('Elektrizitätswerke des').nth(1).click();
-    await page.locator('.col-4.pr-0').first().click();
-    await page.getByRole('textbox', { name: '6.95' }).fill('6.93'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    // await page.locator('div:nth-child(4) > .col-4.pr-0').click();
-    // await page.getByRole('textbox', { name: '3' }).fill('2');
-    await page.locator('div:nth-child(7) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).first().fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    await page.locator('div:nth-child(8) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '24.133' }).fill('24.136'); //Keep existing value in "name:" and keep desired value in "fill()" then run
-    await page.locator('div:nth-child(9) > .col-4.pr-0').click();
-    await page.getByRole('textbox', { name: '0' }).fill('0');
-    await page.getByRole('button', { name: 'Update Changes' }).click();
+    const sidebar = page.locator('app-design-sidebar');
+    await expect(sidebar).toMatchAriaSnapshot(`- text: DC Power Capacity`);
+    await sidebar.getByText('DC Power Capacity').waitFor({ state: 'visible' });
+    await actions.click(sidebar.getByText('DC Power Capacity'), 'DC Power Capacity tab in Sidebar');
+
+    await page.locator('div').filter({ hasText: 'DC Power Capacity' }).nth(5).click();
+    await page.locator('span').nth(4).click();
+    await page.locator('span').nth(4).click();
+    await page.getByRole('textbox', { name: '10830' }).click(); // keep existing value as from UI
+    await page.getByRole('textbox', { name: '10830' }).fill('10829'); //keep existing value of the "name:" from the UI. Keep desired value in fill()
+    await page.getByRole('button', { name: 'Calculate Power Capacity' }).click();
+
+    await page.locator('section').nth(1).click();
+    await page.getByRole('main').locator('i').click();
+    await page.getByText('CHE', { exact: true }).click();
+    await page.locator('.col-12.select').click();
+    await page.getByText(' Small business, max. power demand: 8 kW ').click(); //after running once change the option
+
+    await page.getByText('Import Consumption from CSV').click();
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('link', { name: '15 min data template' }).click();
+    const download = await downloadPromise;
+    await actions.click(page.locator('.button-image'), 'Upload Consumption Profile');
+    const [fileChooser] = await Promise.all([
+        page.waitForEvent('filechooser'),
+        page.click('.button-image')
+    ]);
+    await fileChooser.setFiles('C:/Downloads/demandexample-kwh.csv');
+
+    await page.getByText('Custom Profile').click();
+    await page.getByRole('textbox', { name: '5', exact: true }).click();
+    await page.getByRole('textbox', { name: '5', exact: true }).fill('20');
     await page.getByRole('button', { name: 'Save and Proceed' }).click();
+    await page.goto('https://design-preprod.solextron.com/design/components');
+    await page.getByText('Back').click();
+
 });
